@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () =>{
-    includeHTML("components/header.html", "header_placeholder");
-    includeHTML("components/footer.html", "footer_placeholder");
+    includeHTML("../../components/header.html", "header-placeholder");
+    includeHTML("../../components/footer.html", "footer-placeholder");
 });
 
 function includeHTML(filePath, elementId) {
