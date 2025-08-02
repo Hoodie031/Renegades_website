@@ -4,12 +4,32 @@
     --primary-white: #ffffff;
     --text-dark: #111111;
     --border-light: #e0e0e0;
+    --footer-dark: #121212;
 
     --main-font: 'Antonio', sans-serif;
     --secondary-sans-font: 'Montserrat', sans-serif;
+    --main-text-font: 'Open Sans', sans-serif;
 
     --fontsize-navigation-desktop: 1.3125rem;
     --separator-size-navigation-desktop: 1.4rem;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--main-text-font);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 /* Header Containers */
@@ -32,7 +52,7 @@ header {
 .header-wrapper {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 30px;
     background-color: var(--primary-white);
 }
 
@@ -49,7 +69,7 @@ header {
 /* Logo Styling */
 .main_header_logo {
     position: absolute;
-    top: 40%;
+    top: 30%;
     transform: translateY(-50%);
     left: 40px;
 
@@ -96,6 +116,10 @@ header {
     letter-spacing: 0.5px;
 }
 
+.nav-list li a:hover {
+    color: var(--secondary-color);
+}
+
 .nav-separator {
     width: 1px;
     height: var(--separator-size-navigation-desktop);
@@ -134,4 +158,94 @@ header {
     font-size: var(--fontsize-navigation-desktop);
     font-weight: 500;
     font-family: var(--main-font);
+}
+
+/* Footer Container */
+.site-footer {
+    flex-shrink: 0;
+    background-color: var(--footer-dark);
+    color: var(--primary-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2.5rem 2rem;
+}
+
+/* Sponsor Logos */
+.sponsor-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    width: 100%;
+}
+
+.sponsor-logos img {
+    max-height: 4rem;
+}
+
+.sponsor-logos a {
+    padding: 1rem;
+}
+
+.sponsor-logos a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Middle Row: Central Branding */
+.footer_center {
+    text-align: center;
+    color: var(--primary-white);
+    line-height: 1.4;
+}
+
+.footer_center .footer_branding_title {
+    font-family: "Quantico", sans-serif;
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+/* Footer Socials */
+.footer_socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer_socials img {
+    height: 40px;
+    width: 40px;
+    filter: brightness(0) invert(1) grayscale(1);
+}
+
+.footer_socials a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Bottom Row: Legal Links */
+.footer_legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.footer_legal a {
+    color: var(--primary-white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer_legal a:hover {
+    color: var(--secondary-color)
+}
+
+.footer_legal .divider {
+    color: var(--primary-white);
 }
