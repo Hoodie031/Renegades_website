@@ -263,3 +263,90 @@ main {
     background-color: var(--primary-white);
     flex-grow: 1;
 }
+
+.intro-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 0rem 2rem;
+}
+
+.jumbotron {
+    flex: 0 1 70%;
+    min-width: 0;
+}
+
+.socials-intro {
+    flex: 1 1 30%;
+    min-width: 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.renegade-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--primary-white);
+    height: 80px;
+    width: 80px;
+    z-index: 10;
+}
+
+.renegade-logo img {
+    width: 80%;
+    height: auto;
+}
+
+.section-title {
+    font-family: var(--main-font);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Jumbotron SLider */
+#jumbotron-slider {
+    width: 100%;
+    height: 70vh;
+    background-color: var(--secondary-color);
+}
+
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 2rem;
+    color: var(--primary-white);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Add a dark overlay so white text is always readable */
+.swiper-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+    z-index: 1;
+}
+
+.swiper-slide h3 {
+    position: relative;
+    z-index: 2;
+    font-size: 2rem;
+    margin: 0;
+}
+
