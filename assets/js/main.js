@@ -41,26 +41,68 @@ document.addEventListener('DOMContentLoaded', function() {
                 jumbotronContainer.innerHTML = '';
 
                 posts.forEach(post => {
+                    const title = post.title.rendered;
+                    const postDate = new Date(post.date);
+                    const formattedDate = postDate.toLocaleDateString('de-CH', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    console.log(formattedDate);
                     const hasFeaturedImage = post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0];
                     if (hasFeaturedImage) {
-                        const imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
-                        console.log(post._embedded['wp:featuredmedia'][0]);
-                        const title = post.title.rendered;
-
-                        const slide = document.createElement('div');
-                        slide.className = 'swiper-slide';
-                        slide.style.backgroundImage = `url(${imageUrl})`;
-                        slide.innerHTML = `<h3>${title}</h3>`;
-                        jumbotronContainer.appendChild(slide);
+                        imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+                    } else {
+                        imageUrl = 'assets/images/renegades_logo_full.png';
                     }
+
+                    // Build HTML structure for each post
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.style.backgroundImage = `url(${imageUrl})`;
+                    slide.innerHTML = `
+                        <div class="slide-content">
+                            <p class='slide-date'>${formattedDate}</p>
+                            <h3 class='slide-title'>${title}</h3>
+                            <a class='slide-read-more' href="${post.link}" class="read-more">WEITERLESEN</a>
+                        </div>
+                    `;
+
+                    // Apply special styling for fallback image
+                    if (!hasFeaturedImage) {
+                        slide.style.backgroundSize = 'contain';
+                        slide.style.backgroundColor = '#111';
+                        slide.style.backgroundRepeat = 'no-repeat';
+                    }
+
+                    jumbotronContainer.appendChild(slide);
                 });
                 const sliderElement = document.querySelector('#jumbotron-slider');
                 console.log("Attempting to initialize Swiper on this element:", sliderElement);
                 const jumbotronSwiper = new Swiper('#jumbotron-slider', {
                     loop: true,
-                    autoplay: { delay: 5000 },
+                    autoplay: { delay: 6000, disableOnInteraction: false},
                     pagination: { el: '.swiper-pagination', clickable: true },
                     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+
+                    on: {
+                        init: function () {
+                            setTimeout(() => {
+                                this.slides[this.activeIndex].classList.add('slide-is-active')
+                            }, 1000);
+                        },
+
+                        slideChange: function () {
+                            this.slides.forEach(slide => {
+                                slide.classList.remove('slide-is-active');
+                            });
+
+                            setTimeout(() => {
+                                this.slides[this.activeIndex].classList.add('slide-is-active')
+                            }, 1000);
+
+                        }
+                    }
                 });
             } else {
                 // If no posts were found, display a friendly message

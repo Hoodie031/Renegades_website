@@ -1,16 +1,43 @@
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url(../fonts/helvetica-neue-5/HelveticaNeueLight.otf) format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue Condensed';
+    src: url(../fonts/helvetica-neue-5/HelveticaNeueCondensedBlack.woff) format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../fonts/helvetica-light-587ebe5a59211.ttf) format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
 :root {
-    --primary-color: #1c3d7d;
-    --secondary-color: #137abf;
+    --primary-color: #15548e;
+    --secondary-color: #077bc0;
+    --primary-grey: #b1b4b5;
+    --secondary-grey: #88898a;
+    --accent-color: #b8b42d;
     --primary-white: #ffffff;
     --text-dark: #111111;
     --border-light: #e0e0e0;
     --footer-dark: #121212;
 
-    --main-font: 'Antonio', sans-serif;
+    --main-font: 'Helvetica Neue Condensed', sans-serif;
     --secondary-sans-font: 'Montserrat', sans-serif;
-    --main-text-font: 'Open Sans', sans-serif;
+    --main-text-font: 'Helvetica Neue', sans-serif;
 
-    --fontsize-navigation-desktop: 1.3125rem;
+    --fs-header: 4rem;
+    --fs-title: 2.5rem;
+    --fs-subtitle: 1.6rem;
+    --fs-base: 1rem;
     --separator-size-navigation-desktop: 1.4rem;
 }
 
@@ -22,10 +49,32 @@ body {
     margin: 0;
     padding: 0;
     font-family: var(--main-text-font);
+    font-size: var(--fs-base);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--main-font);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+}
+
+h1 {
+    font-size: var(--fs-header);
+}
+
+h2 {
+    font-size: var(--fs-title);
+}
+
+h3 {
+    font-size: var(--fs-subtitle);
+    font-weight: 300;
+    font-family: var(--main-text-font);
 }
 
 main {
@@ -118,8 +167,8 @@ header {
     color: var(--primary-white);
     text-decoration: none;
     font-weight: bold;
-    font-family: var(--main-font);
-    font-size: var(--fontsize-navigation-desktop);
+    font-family: var(--fs-title);
+    font-size: var(--fs-subtitle);
     letter-spacing: 0.5px;
 }
 
@@ -145,8 +194,8 @@ header {
     gap: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
-    font-size: 1.6rem;
-    font-family: var(--secondary-sans-font);
+    font-size: var(--fs-subtitle);
+    font-family: var(--main-font);
 }
 
 .sub-nav-list {
@@ -162,9 +211,9 @@ header {
 .sub-nav-list li a {
     color: var(--text-dark);
     text-decoration: none;
-    font-size: var(--fontsize-navigation-desktop);
+    font-size: var(--fs-subtitle);
     font-weight: 500;
-    font-family: var(--main-font);
+    font-family: var(--main-text-font);
 }
 
 /* Footer Container */
@@ -320,15 +369,13 @@ main {
 
 .swiper-slide {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 2rem;
+    justify-content: flex-start;
+    align-items: center;
     color: var(--primary-white);
     background-size: cover;
     background-position: center;
     position: relative;
-    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Add a dark overlay so white text is always readable */
@@ -339,14 +386,74 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+    background-color: rgba(25, 45, 40, 0.6);
     z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; 
 }
 
-.swiper-slide h3 {
+/* -- Text content inside the slide -- */
+
+.slide-content {
     position: relative;
     z-index: 2;
-    font-size: 2rem;
+    color: var(--primary-white);
+    padding: 2rem 3rem;
+    max-width: 70%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* --- THE ACTIVE STATE --- */
+
+.swiper-slide.slide-is-active::before {
+    opacity: 1; /* Fade in the overlay */
+}
+
+.swiper-slide.slide-is-active .slide-content {
+    opacity: 1; /* Fade in the text */
+    transform: translateY(0); /* Return to original position */
+}
+
+.slide-date {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-white);
+    margin: 0 0 1rem 0;
+}
+
+.slide-title {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.1;
     margin: 0;
+}
+
+.slide-read-more {
+    display: inline-block;
+    color: var(--primary-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 2px solid var(--primary-white);
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 6;
+}
+
+.slide-read-more:hover {
+    background-color: var(--primary-white);
+    color: var(--secondary-color);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--secondary-color);
+}
+
+.swiper-pagination-bullet-active {
+    background-color: var(--secondary-color);
 }
 
