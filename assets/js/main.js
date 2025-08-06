@@ -118,6 +118,16 @@ async function initNewsBoard() {
                     imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
                 }
 
+                let tagName = 'Allgemein'; //Default Fallback
+                if (post._embedded && post._embedded['wp:term']) {
+                    const allTerms = post._embedded['wp:term'].flat();
+                    const tagObject = allTerms.find(term => term.taxonomy === 'post_tag');
+                    if (tagObject && tagObject.name) {
+                        tagName = tagObject.name;
+                    }
+                }
+
+                // Create the news card element in HTML
                 const card = document.createElement('a');
                 card.className = 'news-item';
                 card.href = postLink;
@@ -126,7 +136,7 @@ async function initNewsBoard() {
                     <div class="news-item-content">
                         <h3 class="news-item-title">${title}</h3>
                         <div class="news-item-meta">
-                            <span>Football</span>
+                            <span>${tagName}</span>
                             <span class="separator">|</span>
                             <span>${formattedDate}</span>
                         </div>
